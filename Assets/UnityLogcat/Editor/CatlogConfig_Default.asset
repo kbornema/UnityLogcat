@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8eacb2f9b7125214093d8d3cdd47e244, type: 3}
-  m_Name: Logcat_LogConfig
+  m_Name: CatlogConfig_Default
   m_EditorClassIdentifier: 
   _minPriority: 0
   _printEmptyMessages: 0

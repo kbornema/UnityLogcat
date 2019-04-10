@@ -36,13 +36,18 @@ namespace LogcatWrapper.Unity
                 return;
             }
 
+            var deviceArgument = _globalConfig.DeviceId.Value.Trim();
+
+            if (deviceArgument.Length > 0)
+                deviceArgument = " -s " + deviceArgument + " ";
+
             if (_logConfig.ClearBeforeStart)
             {
-                var clearHook = new Logcat_Hook(adbPath, " -b all -c", false);
+                var clearHook = new Logcat_Hook(adbPath, deviceArgument, " -b all -c", false);
                 clearHook.Start(true);
             }
 
-            _logcatHook = new Logcat_Hook(adbPath, _logConfig.GetCommandLineArgsString(), true);
+            _logcatHook = new Logcat_Hook(adbPath, deviceArgument, _logConfig.GetCommandLineArgsString(), true);
         
             if(_logcatHook.Start(false))
             {

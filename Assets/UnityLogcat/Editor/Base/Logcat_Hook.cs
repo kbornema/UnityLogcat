@@ -14,12 +14,12 @@ namespace LogcatWrapper.Base
 
         private Process _process;
 
-        public Logcat_Hook(string pathToAdb, string arguments, bool hasWindow)
-        {   
+        public Logcat_Hook(string pathToAdb, string deviceIdArgument, string arguments, bool hasWindow, string command = "logcat")
+        {
             var startInfo = new ProcessStartInfo
             {
                 FileName = pathToAdb,
-                Arguments = "logcat" + arguments,
+                Arguments = deviceIdArgument + command + arguments,
 
                 CreateNoWindow = !hasWindow,
                 UseShellExecute = false,
@@ -34,8 +34,8 @@ namespace LogcatWrapper.Base
                 StartInfo = startInfo
             };
 
-            _process.OutputDataReceived += new System.Diagnostics.DataReceivedEventHandler(process_OutputDataReceived);
-            _process.ErrorDataReceived += new System.Diagnostics.DataReceivedEventHandler(process_OutputDataReceived);
+            _process.OutputDataReceived += new System.Diagnostics.DataReceivedEventHandler(OnOutputDataReceived);
+            _process.ErrorDataReceived += new System.Diagnostics.DataReceivedEventHandler(OnOutputDataReceived);
         }
 
         public bool Start(bool threadBlocking)
@@ -54,7 +54,7 @@ namespace LogcatWrapper.Base
             return false;
         }
 
-        private void process_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        private void OnOutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             var line = e.Data.Trim();
 

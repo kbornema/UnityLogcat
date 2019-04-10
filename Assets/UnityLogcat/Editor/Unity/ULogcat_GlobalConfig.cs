@@ -11,8 +11,11 @@ namespace LogcatWrapper.Unity
         private EditorPrefString _adbPath = new EditorPrefString("ULogcat.AdbPath");
         public EditorPrefString AdbPath => _adbPath;
 
-        private EditorPrefString _logConfigAssetGUID = new EditorPrefString("ULogcat.LogConfigAssetGUID");
+        private EditorPrefString _logConfigAssetGUID = new EditorPrefString(PlayerSettings.productName + ".ULogcat.LogConfigAssetGUID");
         public EditorPrefString LogConfigAssetGUID => _logConfigAssetGUID;
+
+        private EditorPrefString _deviceId = new EditorPrefString("ULogcat.DeviceId");
+        public EditorPrefString DeviceId => _deviceId;
 
         private ULogcat_LogConfig _logConfigAsset;
         public ULogcat_LogConfig LogConfigAsset => _logConfigAsset;
@@ -21,7 +24,7 @@ namespace LogcatWrapper.Unity
         {
             _adbPath.Init();
             _logConfigAssetGUID.Init();
-
+            _deviceId.Init();
             _logConfigAsset = AssetDatabase.LoadAssetAtPath<ULogcat_LogConfig>(AssetDatabase.GUIDToAssetPath(_logConfigAssetGUID.Value));
         }
 

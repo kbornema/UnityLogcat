@@ -24,15 +24,14 @@ namespace LogcatWrapper.Unity
             var logConfig = (ULogcat_LogConfig)EditorGUILayout.ObjectField("Log Config", _globalConfig.LogConfigAsset, typeof(ULogcat_LogConfig), false);
 
             if(logConfig != _globalConfig.LogConfigAsset)
-            {
                 _globalConfig.SetLogConfig(logConfig);
-            }
 
+            var advDeviceId = _globalConfig.DeviceId;
+            advDeviceId.SetValue(EditorGUILayout.TextField("Device Id", advDeviceId.Value));
+            EditorGUILayout.LabelField("DeviceId is only needed if multiple devices are connected.");
 
-            if(GUILayout.Button("Start Logcat"))
-            {
+            if (GUILayout.Button("Start Logcat"))
                 ULogcat_Runner.StartLogcat();
-            }
         }
 
         [MenuItem("Tools/Configure Logcat")]
